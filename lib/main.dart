@@ -1,5 +1,7 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_demo_plugin/platform_vpn.dart';
+import 'package:flutter_demo_plugin/platform_vpn/platform_vpn.dart';
+import 'package:path_provider/path_provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -110,7 +112,12 @@ class _MyHomePageState extends State<MyHomePage> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           _incrementCounter();
-          vpn.showToast();
+          PlatformVPN().getPlatformVersion().then((value) {
+            debugPrintThrottled("platform version: $value");
+          });
+          getApplicationDocumentsDirectory().then((value) {
+            debugPrintThrottled("directory: $value");
+          });
         },
         tooltip: 'Increment',
         child: const Icon(Icons.add),
